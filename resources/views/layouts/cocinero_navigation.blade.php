@@ -3,7 +3,7 @@
         <a  class="text-xl font-bold">MealMatch</a>
 
         <div class="space-x-4 flex items-center">
-            <a href="{{ view('home') }}" class="hover:underline">Inicio</a>
+            <a href="{{ route('cocinero.dashboard') }}" class="hover:underline">Inicio</a>
             @auth
                 
 
