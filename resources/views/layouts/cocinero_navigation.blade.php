@@ -1,6 +1,6 @@
 <nav class="bg-[#FFF3E0] text-black">
     <div class="container mx-auto flex justify-between items-center py-3">
-        <a  class="text-xl font-bold">MealMatch</a>
+        <a  href="{{ route('cocinero.dashboard') }}" class="text-xl font-bold">MealMatch</a>
 
         <div class="space-x-4 flex items-center">
             <a href="{{ route('cocinero.dashboard') }}" class="hover:underline">Inicio</a>

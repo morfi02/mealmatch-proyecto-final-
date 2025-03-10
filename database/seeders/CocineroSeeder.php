@@ -10,12 +10,7 @@ class CocineroSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Cocinero Prueba',
-            'email' => 'cocinero@prueba.com',
-            'password' => Hash::make('password'),
-            'rol' => 'cocinero', 
-        ]);
+        
         User::create([
             'name' => 'chef jorge',
             'email' => 'chefjorge@prueba.com',
