@@ -26,9 +26,53 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white shadow py-4 text-center mt-0">
-        <p class="text-gray-600">&copy; 2025 MealMatch. Todos los derechos reservados.</p>
+    <footer style="background-color: #222; color: white; padding: 40px 20px; font-size: 14px;">
+        <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <!-- Sección Sobre Nosotros -->
+            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+                <h3>Sobre Nosotros</h3>
+                <p>Somos una empresa dedicada a ofrecer productos y servicios de alta calidad, comprometidos con la satisfacción de nuestros clientes.</p>
+                <p>Dirección: Calle Ejemplo 123, Ciudad, País</p>
+                <p>Teléfono: +123 456 789</p>
+                <p>Email: contacto@empresa.com</p>
+            </div>
+            
+            <!-- Sección Enlaces Rápidos -->
+            <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+                <h3>Enlaces Rápidos</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Inicio</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Productos</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Servicios</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <!-- Sección Redes Sociales -->
+            <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+                <h3>Síguenos</h3>
+                <p>Conéctate con nosotros en redes sociales:</p>
+                <p>
+                    <a href="#" style="color: white; text-decoration: none; margin-right: 10px;">Facebook</a>
+                    <a href="#" style="color: white; text-decoration: none; margin-right: 10px;">Twitter</a>
+                    <a href="#" style="color: white; text-decoration: none; margin-right: 10px;">Instagram</a>
+                    <a href="#" style="color: white; text-decoration: none;">LinkedIn</a>
+                </p>
+            </div>
+            
+            <!-- Sección Newsletter -->
+            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+                <h3>Suscríbete</h3>
+                <p>Recibe las últimas novedades y ofertas especiales directamente en tu correo electrónico.</p>
+                <input type="email" placeholder="Tu correo electrónico" style="padding: 8px; width: 80%; margin-bottom: 10px;">
+                <button style="padding: 8px 12px; background-color: #f04; color: white; border: none; cursor: pointer;">Suscribirse</button>
+            </div>
+        </div>
+        <hr style="margin: 20px 0; border-color: #555;">
+        <p style="text-align: center;">&copy; 2025 Empresa. Todos los derechos reservados.</p>
     </footer>
+
 </body>
 
 </html>

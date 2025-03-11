@@ -9,7 +9,7 @@
         <div class="container mx-auto text-center">
             <h1 class="text-5xl font-bold animate__animated animate__bounce"">Comida casera al alcance de un clic</h1>
             <p class="text-xl mt-4">Encuentra cocineros locales que preparan deliciosos platillos para ti.</p>
-            <a href="{{ url('/') }}"
+            <a href="{{ route('login') }}"
                 class="mt-6 inline-block bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600">Ver Cocineros</a>
         </div>
     </section>

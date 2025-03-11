@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.cliente_app')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 p-8">
@@ -30,10 +30,10 @@
                 </div>
 
                 <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
-                    <h1 class="text-5xl font-extrabold text-white mb-3 text-shadow-2xl drop-shadow-lg">
+                    <h1 class="text-5xl font-extrabold text-white mb-3 text-shadow-2xl drop-shadow-lg animate__animated animate__tada">
                         Descubre Chefs Talentosos
                     </h1>
-                    <p class="text-xl text-white text-shadow-lg drop-shadow-md max-w-2xl mx-auto">
+                    <p class="text-xl text-white text-shadow-lg drop-shadow-md max-w-2xl mx-auto animate__animated animate__tada">
                         Encuentra tu experiencia culinaria perfecta
                     </p>
                 </div>

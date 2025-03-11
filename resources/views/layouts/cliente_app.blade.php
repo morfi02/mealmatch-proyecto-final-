@@ -19,7 +19,7 @@
 
 
     <!-- Navegación -->
-    @include('layouts.cocinero_navigation')
+    @include('layouts.cliente_navigation')
 
     <!-- Contenido Principal -->
     <main class="mt-0">

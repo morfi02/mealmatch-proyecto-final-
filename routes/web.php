@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/cocinero/dashboard', [UsuariosController::class, 'cocineroDashboard'])->name('cocinero.dashboard');
-    Route::resource('dishes', DishController::class)->only(['store']);
+    Route::resource('dishes', DishController::class);
 });
 
 
