@@ -6,8 +6,8 @@
 <!-- Sección Hero  -->
 <section class="bg-cover bg-center h-96 text-white flex items-center" style="background-image: url('{{ asset('images/cocina.png') }}');">
     <div class="container mx-auto text-center">
-        <h1 class="text-5xl font-bold">Bienvenido, {{ Auth::user()->name }}</h1>
-        <p class="text-xl mt-4">Cada plato que creas es una obra de arte. ¡Sigue cocinando con pasión!</p>
+        <h1 class="text-5xl font-bold animate__animated animate__bounceInLeft">Bienvenido, {{ Auth::user()->name }}</h1>
+        <p class="text-xl mt-4 animate__animated animate__bounceInLeft">Cada plato que creas es una obra de arte. ¡Sigue cocinando con pasión!</p>
         <button id="toggleFormButton" class="mt-6 inline-block bg-blue-500 text-white text-lg font-semibold py-3 px-6 rounded-lg hover:bg-[#FF8C7F] transition duration-300 animate__animated animate__bounce">
             Publicar Nuevo Plato
         </button>
