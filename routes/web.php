@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/cliente/dashboard', [UsuariosController::class, 'clienteDashboard'])->name('cliente.dashboard');
+    Route::get('/cliente/cocinero/{id}', [UsuariosController::class, 'showCocinero'])->name('cliente.cocinero.show');
+    Route::get('/cocineros/{id}', [UsuariosController::class, 'show'])->name('cocineros.show');
 });
 
 Route::middleware(['auth'])->group(function () {
