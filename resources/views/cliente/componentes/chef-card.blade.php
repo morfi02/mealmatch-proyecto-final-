@@ -2,7 +2,6 @@
     href="{{ route('cocineros.show', $cocinero) }}" 
     class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
 >
-    <!-- Imagen de perfil -->
     <div class="relative h-48">
         <img 
             src="{{ asset('storage/' . $cocinero->profile_photo_url) }}" 
@@ -14,7 +13,6 @@
         </span>
     </div>
 
-    <!-- Información del cocinero -->
     <div class="p-6">
         <h3 class="text-xl font-bold text-[#2D3748] mb-2">{{ $cocinero->name }}</h3>
         <p class="text-[#6B5B95] font-medium mb-3">{{ $cocinero->category }}</p>
