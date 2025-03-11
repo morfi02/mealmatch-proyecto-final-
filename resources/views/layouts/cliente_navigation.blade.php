@@ -1,4 +1,4 @@
-<nav class="bg-[#FFF3E0] text-black">
+<nav class="bg-white text-black">
     <div class="container mx-auto flex justify-between items-center py-3">
         <a  href="{{ route('cliente.dashboard') }}" class="text-xl font-bold">MealMatch</a>
 
