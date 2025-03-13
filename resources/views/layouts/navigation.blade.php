@@ -3,7 +3,7 @@
         <a  class="text-xl font-bold">MealMatch</a>
 
         <div class="space-x-4 flex items-center">
-            <a href="{{ route('home') }}" class="hover:underline">Inicio</a>
+            <a href="{{ route('home') }}" class="hover:underline flex items-center text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Inicio</a>
             @auth
                 
 
@@ -28,8 +28,8 @@
                     </div>
                 </div>
             @else
-                <a href="{{ route('login') }}" class="hover:underline">Iniciar sesión</a>
-                <a href="{{ route('register') }}" class="hover:underline">Registrarse</a>
+                <a href="{{ route('login') }}" class="hover:underline flex items-center text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Iniciar sesión</a>
+                <a href="{{ route('register') }}" class="hover:underline flex items-center text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Registrarse</a>
             @endauth
         </div>
     </div>

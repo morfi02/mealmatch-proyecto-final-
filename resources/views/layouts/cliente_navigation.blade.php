@@ -3,7 +3,7 @@
         <a  href="{{ route('cliente.dashboard') }}" class="text-xl font-bold">MealMatch</a>
 
         <div class="space-x-4 flex items-center">
-            <a href="{{ route('cliente.dashboard') }}" class="hover:underline">Inicio</a>
+            <a href="{{ route('cliente.dashboard') }}" class="hover:underline flex items-center text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Inicio</a>
             @auth
                 
 
