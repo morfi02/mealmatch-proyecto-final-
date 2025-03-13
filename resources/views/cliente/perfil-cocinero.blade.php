@@ -125,7 +125,65 @@
                         @endforeach
                     </div>
                 </div>
+                <!-- Estilos para el botón de eliminar  -->
+                <style>
+                    .delete-btn {
+                        padding: 2px;
+                        border-radius: 50%;
+                        transition: all 0.2s;
+                    }
+
+                    .delete-btn:hover {
+                        background-color: #fee2e2;
+                    }
+
+                    .cart-item td {
+                        padding: 12px 8px;
+                        vertical-align: middle;
+                    }
+
+                    .cart-item:hover {
+                        background-color: #f8fafc;
+                    }
+                </style>
                 
+                <!-- Sidebar de Información -->
+                <div class="relative">
+                    <div class=" lg:grid-cols-3 gap-8 ">
+
+                        <div class="receipt bg-white p-6 rounded-xl shadow-sm sticky top-8">
+                            <p class="shop-name">{{ $cocinero->name }}</p>
+                            <p class="info">
+                                {{ $cocinero->location }}<br />
+                                Fecha: {{ now()->format('d/m/Y') }}<br />
+                                Hora: {{ now()->format('H:i') }}
+                            </p>
+
+                            <table id="cart-items">
+                                <thead>
+                                    <tr>
+                                        <th>Plato</th>
+                                        <th>Cant.</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                            <div class="total">
+                                <p>Total:</p>
+                                <p id="cart-total">$0.00</p>
+                            </div>
+
+                            <button
+                                class="w-full bg-[#FF6F61] text-black px-6 py-2 rounded-lg hover:bg-[#FF7F71] transition mt-4"
+                                onclick="confirmOrder()">
+                                Confirmar Pedido
+                            </button>
+                        </div>
+                    </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm">
                         <h3 class="text-xl font-bold text-[#2D3748] mb-4">Detalles del Chef</h3>
                         <ul class="space-y-4">
@@ -141,7 +199,81 @@
                         </ul>
                     </div>
                 </div>
+                <style>
+                    /* estilo ticket */
+                .receipt {
+                width: 250px;
+                background: white;
+                border: 2px dashed #ccc;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                font-family: 'Courier New', Courier, monospace;
+                }
+
+                .shop-name {
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 10px;
+                color: #2D3748;
+                text-transform: uppercase;
+                }
+
+                .info {
+                text-align: center;
+                font-size: 0.85rem;
+                margin-bottom: 15px;
+                color: #4A5568;
+                line-height: 1.5;
+                }
+
+                .receipt table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 15px;
+                font-size: 0.85rem;
+                }
+
+                .receipt table th,
+                .receipt table td {
+                padding: 4px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+                }
+
+                .receipt table th {
+                background-color: #f7fafc;
+                font-weight: 600;
+                }
+
+                .total {
+                display: flex;
+                justify-content: space-between;
+                font-size: 1rem;
+                font-weight: bold;
+                margin-bottom: 15px;
+                padding-top: 10px;
+                border-top: 2px dashed #ccc;
+                }
+
+                .barcode {
+                display: flex;
+                justify-content: center;
+                margin-top: 15px;
+                }
+
+                .thanks {
+                font-size: 0.85rem;
+                text-align: center;
+                margin-top: 10px;
+                color: #718096;
+                font-style: italic;
+                }
+
+                </style>
             </div>
     </div>
 </div>
+
 @endsection

@@ -1,43 +1,225 @@
-.menu-img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 10px;
+/* estilos para el menu del chef.card */
+.menu-card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  perspective: 1500px;
+  border-radius: 8px;
+  cursor: pointer;
 }
-.card {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 15px;
-    transition: 0.3s;
+
+.menu-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #d99d7f;
+  transform-origin: left;
+  transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  z-index: 2;
 }
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+.menu-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f5e6d3;
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+  transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1;
 }
-.profile-img {
-    width: 150px; 
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ff7b00;
+
+.menu-card:hover .menu-cover {
+  transform: rotateY(-160deg);
 }
-.menu-img {
-    width: 80px;  
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 10px;
+
+.menu-card:hover .menu-content {
+  transform: rotateY(0);
 }
-.card {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 15px;
-    transition: 0.3s;
+
+.menu-texture {
+  background-image: radial-gradient(circle, #4a372e 10%, transparent 10%);
+  background-size: 10px 10px;
+  opacity: 0.3;
 }
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+.menu-chef-image {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
 }
+
+.menu-title {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.font-vintage {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.menu-divider {
+  width: 50%;
+  height: 2px;
+  background: #f5e6d3;
+  margin: 10px auto;
+}
+
+.rating-badge {
+  background: #8b0000;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.menu-paper-texture {
+  background: linear-gradient(to bottom, #f5e6d3 0%, #e7d8c4 100%);
+  height: 100%;
+  padding: 25px;
+  position: relative;
+}
+
+.menu-section-title {
+  font-family: 'Playfair Display', serif;
+  color: #3a2a22;
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.item-name {
+  font-family: 'Lora', serif;
+  max-width: 70%;
+}
+
+.item-dots {
+  flex-grow: 1;
+  border-bottom: 1px dotted #3a2a22;
+  margin: 0 10px;
+  position: relative;
+  top: -4px;
+}
+
+.item-price {
+  font-family: 'Cinzel', serif;
+  color: #8b0000;
+}
+
+.menu-corner-logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: 'Cinzel', serif;
+  color: #3a2a22;
+  opacity: 0.3;
+  font-size: 0.8rem;
+}
+
+
+.receipt {
+  width: 250px;
+  background: white;
+  border: 2px dashed #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.shop-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2D3748;
+  text-transform: uppercase;
+}
+
+.info {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  color: #4A5568;
+  line-height: 1.5;
+}
+
+.receipt table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+}
+
+.receipt table th,
+.receipt table td {
+  padding: 4px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.receipt table th {
+  background-color: #f7fafc;
+  font-weight: 600;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  border-top: 2px dashed #ccc;
+}
+
+.barcode {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.thanks {
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 10px;
+  color: #718096;
+  font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
