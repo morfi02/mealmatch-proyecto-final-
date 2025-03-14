@@ -151,7 +151,7 @@
                 <div class="relative">
                     <div class=" lg:grid-cols-3 gap-8 ">
 
-                        <div class="receipt bg-white p-6 rounded-xl shadow-sm sticky top-8">
+                        <div class="receipt bg-white p-6 rounded-xl shadow-sm sticky top-8 animate__animated animate__zoomIn">
                             <p class="shop-name">{{ $cocinero->name }}</p>
                             <p class="info">
                                 {{ $cocinero->location }}<br />

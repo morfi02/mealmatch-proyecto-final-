@@ -37,19 +37,16 @@ class RegisteredUserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'rol' => 'cliente', // Establecer el rol por defecto
+            'rol' => 'cliente', 
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        // Redirigir a zona-cliente si es cliente
-        if ($user->rol === 'cliente') {
-            return redirect()->route('zona.cliente');
-        }
+        
+        $request->session()->regenerate();
 
-        // Si no es cliente (por si más adelante metes admins u otros roles)
-        return redirect()->route('home');
+        return redirect()->route('cliente.dashboard');
     }
 }
