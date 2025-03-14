@@ -16,6 +16,19 @@ Route::get('', function (): string {
     return view('welcome'); 
 })->name('home');
 
+Route::get('home', function () {
+    if (Auth::check()) {
+        $user = Auth::user();
+        if ($user->rol === 'cliente') {
+            return redirect()->route('cliente.dashboard');
+        } elseif ($user->rol === 'cocinero') {
+            return redirect()->route('cocinero.dashboard');
+        }
+    }
+    return view('welcome'); 
+});
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

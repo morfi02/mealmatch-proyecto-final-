@@ -1,4 +1,4 @@
-@extends(auth()->user()->rol === 'cliente' ? 'layouts.cliente_app' : 'layouts.cocinero_app')
+@extends('layouts.cliente_app')
 
 @section('content')
 
@@ -15,12 +15,14 @@
                 </div>
             </div>
 
+            <!-- Actualizar Contraseña -->
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
 
+            <!-- Eliminar Cuenta -->
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')

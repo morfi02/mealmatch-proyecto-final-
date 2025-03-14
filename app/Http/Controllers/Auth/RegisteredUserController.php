@@ -47,6 +47,6 @@ class RegisteredUserController extends Controller
         
         $request->session()->regenerate();
 
-        return redirect()->route('cliente.dashboard');
+        return redirect()->route($user->rol . '.dashboard');
     }
 }

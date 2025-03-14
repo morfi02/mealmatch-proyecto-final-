@@ -1,6 +1,8 @@
 @extends('layouts.cliente_app')
 
 @section('content')
+
+
 <div class="min-h-screen bg-gray-50 p-8">
         <nav class="flex mb-4" aria-label="Breadcrumb">
             <ol class="flex items-center space-x-4">
