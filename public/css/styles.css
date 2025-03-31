@@ -1,136 +1,91 @@
-/* estilos para el menu del chef.card */
-.menu-card {
+.card {
   position: relative;
-  width: 300px;
-  height: 400px;
-  perspective: 1500px;
-  border-radius: 8px;
-  cursor: pointer;
+  width: 250px;
+  height: 300px;
+  color: #2e2d31;
+  background: #131313;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
-.menu-cover {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #d99d7f;
-  transform-origin: left;
-  transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
-  border-radius: 8px;
-  z-index: 2;
+.temporary_text {
+  font-weight: bold;
+  font-size: 24px;
+  padding: 6px 12px;
+  color: #f8f8f8;
 }
 
-.menu-content {
+.card_content {
   position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 100%;
-  background: #f5e6d3;
-  transform: rotateY(-180deg);
-  backface-visibility: hidden;
-  transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
-  border-radius: 8px;
   padding: 20px;
-  z-index: 1;
+  background: #f2f2f2;
+  border-top-left-radius: 20px;
+  transform: translateY(150px);
+  transition: transform .25s;
 }
 
-.menu-card:hover .menu-cover {
-  transform: rotateY(-160deg);
+.card_content::before {
+  content: '';
+  position: absolute;
+  top: -47px;
+  right: -45px;
+  width: 100px;
+  height: 100px;
+  transform: rotate(-175deg);
+  border-radius: 50%;
+  box-shadow: inset 48px 48px #f2f2f2;
 }
 
-.menu-card:hover .menu-content {
-  transform: rotateY(0);
+.card_title {
+  font-weight: bold;
+  color: #131313;
+  line-height: 15px;
+  font-size: 18px;
 }
 
-.menu-texture {
-  background-image: radial-gradient(circle, #4a372e 10%, transparent 10%);
-  background-size: 10px 10px;
-  opacity: 0.3;
+.card_subtitle {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
 
-.menu-chef-image {
-  width: 100%;
-  height: 60%;
-  object-fit: cover;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+.card_description {
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity .5s;
 }
 
-.menu-title {
+.dish {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.card_info {
   position: absolute;
   bottom: 20px;
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   text-align: center;
-  padding: 0 20px;
+  color: #131313;
 }
 
-.font-vintage {
-  font-family: 'Cinzel', serif;
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.card:hover .card_content {
+  transform: translateY(0);
 }
 
-.menu-divider {
-  width: 50%;
-  height: 2px;
-  background: #f5e6d3;
-  margin: 10px auto;
+.card:hover .card_description {
+  opacity: 1;
+  transition-delay: .25s;
 }
 
-.rating-badge {
-  background: #8b0000;
-  padding: 5px 15px;
-  border-radius: 15px;
-  font-size: 0.9rem;
+.card:hover .card_info {
+  opacity: 0; /* Ocultar la información de la parte inferior al hacer hover */
 }
 
-.menu-paper-texture {
-  background: linear-gradient(to bottom, #f5e6d3 0%, #e7d8c4 100%);
-  height: 100%;
-  padding: 25px;
-  position: relative;
-}
-
-.menu-section-title {
-  font-family: 'Playfair Display', serif;
-  color: #3a2a22;
-  border-bottom: 2px solid #8b0000;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-.menu-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.item-name {
-  font-family: 'Lora', serif;
-  max-width: 70%;
-}
-
-.item-dots {
-  flex-grow: 1;
-  border-bottom: 1px dotted #3a2a22;
-  margin: 0 10px;
-  position: relative;
-  top: -4px;
-}
-
-.item-price {
-  font-family: 'Cinzel', serif;
-  color: #8b0000;
-}
-
-.menu-corner-logo {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-family: 'Cinzel', serif;
-  color: #3a2a22;
-  opacity: 0.3;
-  font-size: 0.8rem;
+.card_info .card_subtitle {
+  font-size: 14px;
+  margin-bottom: 10px;
 }

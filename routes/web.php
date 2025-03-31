@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeccionEspecialController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\DishController;
+use App\Http\Controllers\RatingController;
 
 
 
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/cocinero/dashboard', [UsuariosController::class, 'cocineroDashboard'])->name('cocinero.dashboard');
     Route::resource('dishes', DishController::class);
+    Route::post('/rate-chef', [RatingController::class, 'store'])->name('rate.chef');
 });
 
 

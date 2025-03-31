@@ -29,7 +29,7 @@ class CocineroSeeder extends Seeder
                 'email' => $cocinero['email'],
                 'password' => Hash::make('password123'),
                 'rol' => 'cocinero',
-                'profile_photo_url' => $cocinero['image'], // Guarda la ruta relativa
+                'profile_photo_url' => $cocinero['image'], 
             ]);
         }
     }
