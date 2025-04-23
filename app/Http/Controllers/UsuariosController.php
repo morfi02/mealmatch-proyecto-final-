@@ -33,5 +33,25 @@ class UsuariosController extends Controller
         $cocinero = User::findOrFail($id);
         return view('cliente.perfil-cocinero', compact('cocinero'));
     }
+
+    public function buscarCocineros(Request $request)
+    {
+        $query = User::where('rol', 'cocinero')->with('dishes');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('categoria')) {
+            $query->whereHas('dishes', function ($q) use ($request) {
+                $q->where('categoria', $request->categoria);
+            });
+        }
+
+        $cocineros = $query->get();
+
+        return view('cliente.dashboard', compact('cocineros'));
+    }
+
     
 }

@@ -1,40 +1,45 @@
-{{-- Envolvemos todo el contenido de la tarjeta original en una etiqueta <a> --}}
-    <a href="{{ route('cocineros.show', $cocinero) }}" class="card"> 
-        {{-- Mantenemos la clase 'card' si define la apariencia que deseas,
-             o podrías añadir/cambiar clases según el estilo de la segunda vista si prefieres --}}
-    
-        {{-- Contenido interno original de la primera tarjeta --}}
-        <div class="temporary_text">
-            <img src="{{ asset('storage/' . $cocinero->profile_photo_url) }}" 
-                 class="w-full h-48 object-cover rounded-lg"
-                 alt="{{ $cocinero->name }}">
-        </div>
-    
-        <div class="card_content">
-            <span class="card_title">{{ $cocinero->name }}</span>
-            {{-- Asegúrate que la forma de calcular el rating es la que quieres usar --}}
-            <span class="card_subtitle">⭐ {{ number_format($cocinero->ratingsReceived()->avg('rating') ?? 5.0, 1) }}</span> 
-            
-            <div class="card_description">
-                <h4 class="font-semibold text-lg">Especialidades</h4>
-                @forelse($cocinero->dishes->take(3) as $dish)
-                    <div class="dish flex justify-between mb-2">
+<a href="{{ route('cocineros.show', $cocinero) }}" class="chef-card">
+
+    <div class="chef-card__image-container">
+        {{-- La imagen original --}}
+        <img src="{{ asset('storage/' . $cocinero->profile_photo_url) }}"
+             class="chef-card__image"
+             alt="{{ $cocinero->name }}">
+
+        {{-- NUEVA CAPA DE OVERLAY (inicialmente oculta) --}}
+        <div class="chef-card__dishes-overlay">
+            <h5 class="chef-card__overlay-title">Top Platos</h5>
+            <ul class="chef-card__overlay-list">
+                {{-- Bucle para mostrar HASTA 10 platos en el overlay --}}
+                @forelse($cocinero->dishes->take(10) as $dish)
+                    <li class="chef-card__overlay-dish">
                         <span>{{ $dish->name }}</span>
                         @if($dish->price)
                             <span>{{ number_format($dish->price, 2) }}€</span>
                         @endif
-                    </div>
+                    </li>
                 @empty
-                    <p class="text-sm">Creaciones secretas...</p>
+                    <li class="chef-card__overlay-no-dishes">Aún no hay platos destacados.</li>
                 @endforelse
-            </div>
+            </ul>
         </div>
-        {{-- Fin del contenido interno original --}}
-    
-    </a> {{-- Cerramos la etiqueta <a> --}}
-    
-    {{-- El segundo ejemplo con texto de relleno no necesita cambios según tu petición --}}
-    {{-- <article class="card"> ... </article> --}} 
-    
-    {{-- El tercer ejemplo (el que ya era un enlace) se mantiene como referencia --}}
-    {{-- <a href="{{ route('cocineros.show', $cocinero) }}" class="..."> ... </a> --}}
+        {{-- FIN DE LA CAPA DE OVERLAY --}}
+
+    </div>
+
+    {{-- Contenido inferior (se mantiene como antes, mostrando 3 platos) --}}
+    <div class="chef-card__content">
+        <div class="chef-card__header">
+             <span class="chef-card__title">{{ $cocinero->name }}</span>
+             <span class="chef-card__rating">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="chef-card__rating-icon">
+                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354l-4.597 2.927c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.007z" clip-rule="evenodd" />
+                 </svg>
+                 {{ number_format($cocinero->ratingsReceived()->avg('rating') ?? 5.0, 1) }}
+             </span>
+        </div>
+
+        
+    </div> 
+
+</a>

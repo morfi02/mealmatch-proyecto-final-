@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cocinero/dashboard', [UsuariosController::class, 'cocineroDashboard'])->name('cocinero.dashboard');
     Route::resource('dishes', DishController::class);
     Route::post('/rate-chef', [RatingController::class, 'store'])->name('rate.chef');
+    Route::get('/buscar-cocineros', [UsuariosController::class, 'buscarCocineros'])->name('buscar.cocineros');
+
 });
 
 
