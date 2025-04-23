@@ -54,6 +54,54 @@
                         <input type="file" name="image" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#FF6F61]" required>
                     </div>
                     <div class="col-span-2">
+                        <label class="block text-gray-700 text-lg font-medium mb-2">Categorías del Plato</label>
+                        
+                        <!-- Clasificaciones basadas en la experiencia -->
+                        <div class="mb-4">
+                            <p class="font-semibold text-[#6B5B95] mb-2">🍽️ Clasificaciones basadas en la experiencia</p>
+                            @foreach(['Cena Romántica', 'Comida Familiar Casera', 'Comida para Compartir con Amigos', 'Ideal para una Primera Cita', 'Para Sorprender a Alguien'] as $cat)
+                                <label class="block text-sm text-gray-600 mb-1">
+                                    <input type="checkbox" name="tags[]" value="{{ $cat }}" class="mr-2">
+                                    {{ $cat }}
+                                </label>
+                            @endforeach
+                        </div>
+                    
+                        <!-- Según el estado de ánimo -->
+                        <div class="mb-4">
+                            <p class="font-semibold text-[#6B5B95] mb-2">😌 Según el estado de ánimo</p>
+                            @foreach(['Confort Food / Comida Reconfortante', 'Para un Día Lluvioso', 'Ligera y Refrescante', 'Para Recargar Energías', 'Para Consentirte'] as $cat)
+                                <label class="block text-sm text-gray-600 mb-1">
+                                    <input type="checkbox" name="tags[]" value="{{ $cat }}" class="mr-2">
+                                    {{ $cat }}
+                                </label>
+                            @endforeach
+                        </div>
+                    
+                        <!-- Según la ocasión -->
+                        <div class="mb-4">
+                            <p class="font-semibold text-[#6B5B95] mb-2">💼 Según la ocasión</p>
+                            @foreach(['Comida para Llevar al Trabajo', 'Ideal para Picnics', 'Menú para Eventos Pequeños', 'Desayuno de Domingo', 'Cena Exprés entre Semana'] as $cat)
+                                <label class="block text-sm text-gray-600 mb-1">
+                                    <input type="checkbox" name="tags[]" value="{{ $cat }}" class="mr-2">
+                                    {{ $cat }}
+                                </label>
+                            @endforeach
+                        </div>
+                    
+                        <!-- Estilo de cocina o intención -->
+                        <div class="mb-4">
+                            <p class="font-semibold text-[#6B5B95] mb-2">💡 Estilo de cocina o intención</p>
+                            @foreach(['Hecho con Amor', '100% Casero', 'De la Abuela', 'De Temporada', 'Cocina de Autor', 'Comida Tradicional Renovada'] as $cat)
+                                <label class="block text-sm text-gray-600 mb-1">
+                                    <input type="checkbox" name="tags[]" value="{{ $cat }}" class="mr-2">
+                                    {{ $cat }}
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-2">
                         <button type="submit" class="w-full bg-black text-white text-lg font-semibold py-2 rounded hover:bg-[#FF8C7F] transition duration-300">
                             Publicar Plato
                         </button>

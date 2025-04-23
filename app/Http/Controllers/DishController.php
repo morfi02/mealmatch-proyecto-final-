@@ -22,6 +22,7 @@ class DishController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'tags' => 'array',
         ]);
 
         $imagePath = $request->file('image')->store('dishes', 'public');
@@ -31,10 +32,11 @@ class DishController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'image' => $imagePath,
+            'tags' => json_encode($request->tags),
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('cocinero.dashboard');
+        return redirect()->route('cocinero.dashboard')->with('success', 'Plato publicado con éxito.');
     }
     public function edit(Dish $dish)
     {
