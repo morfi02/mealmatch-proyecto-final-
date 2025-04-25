@@ -312,12 +312,19 @@
 
     function confirmOrder() {
         if (cart.length === 0) {
-            alert('¡Añade platos a tu pedido!');
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Carrito vacío!',
+                text: 'Añade platos a tu pedido antes de confirmar.',
+            });
             return;
         }
 
-        console.log('Pedido confirmado:', cart);
-        alert('Pedido confirmado con éxito. Total: $' + total.toFixed(2));
+        Swal.fire({
+            icon: 'success',
+            title: 'Pedido confirmado',
+            text: 'Tu pedido ha sido confirmado con éxito. Total: $' + total.toFixed(2),
+        });
 
         cart = [];
         total = 0;

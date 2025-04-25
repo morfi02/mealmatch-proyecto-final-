@@ -130,12 +130,11 @@
                                             class="text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200">Editar</span>
                                         <i class="fas fa-edit text-lg"></i>
                                     </a>
-                                    <form action="{{ route('dishes.destroy', $dish->id) }}" method="POST" class="inline">
+                                    <form action="{{ route('dishes.destroy', $dish->id) }}" method="POST" class="inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="group flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-all duration-200"
-                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este plato?')">
+                                        <button type="button"
+                                            class="group flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-all duration-200 delete-button">
                                             <span
                                                 class="text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200">Eliminar</span>
                                             <i class="fas fa-trash text-lg"></i>
@@ -160,6 +159,34 @@
         if (!formContainer.classList.contains('hidden')) {
             formContainer.scrollIntoView({ behavior: 'smooth' });
         }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const form = this.closest('.delete-form');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esta acción!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
     });
 </script>
 @endsection

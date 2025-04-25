@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -24,17 +25,34 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'profile_photo' => ['nullable', 'image', 'max:2048'], // Validación para la foto
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+
+        // Si se sube una nueva foto de perfil
+        if ($request->hasFile('profile_photo')) {
+            // Eliminar la foto anterior si existe
+            if ($user->profile_photo_url) {
+                Storage::delete('public/' . $user->profile_photo_url);
+            }
+
+            // Guardar la nueva foto
+            $path = $request->file('profile_photo')->store('chef-profiles', 'public');
+            $user->profile_photo_url = $path;
         }
 
-        $request->user()->save();
+        // Actualizar otros campos
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**
