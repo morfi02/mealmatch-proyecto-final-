@@ -15,7 +15,9 @@ class UsuariosController extends Controller
             ->with('dishes')
             ->get();
 
-        return view('cliente.dashboard', compact('cocineros'));
+        $categorias = Dish::select('tags')->get()->pluck('tags')->flatten()->unique();
+
+        return view('cliente.dashboard', compact('cocineros','categorias'));
     }
 
     public function cocineroDashboard()
@@ -44,13 +46,16 @@ class UsuariosController extends Controller
 
         if ($request->filled('categoria')) {
             $query->whereHas('dishes', function ($q) use ($request) {
-                $q->where('categoria', $request->categoria);
+                $q->whereJsonContains('tags', $request->categoria);
             });
         }
 
         $cocineros = $query->get();
 
-        return view('cliente.dashboard', compact('cocineros'));
+        // Obtener todas las categorías únicas de la columna 'tags'
+        $categorias = Dish::select('tags')->get()->pluck('tags')->flatten()->unique();
+
+        return view('cliente.dashboard', compact('cocineros', 'categorias'));
     }
 
     
