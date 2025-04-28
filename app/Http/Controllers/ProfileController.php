@@ -30,10 +30,13 @@ class ProfileController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'profile_photo' => ['nullable', 'image', 'max:2048'], // Validación para la foto
+            'profile_photo' => ['nullable', 'image', 'max:2048'], 
+            'location' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = $request->user();
+
+        $user->update($request->only('name', 'email', 'location'));
 
         // Si se sube una nueva foto de perfil
         if ($request->hasFile('profile_photo')) {

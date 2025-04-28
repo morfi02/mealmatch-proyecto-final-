@@ -21,6 +21,12 @@
                    required>
         </div>
 
+        <div>
+            <x-input-label for="location" :value="__('Ubicación de entrega')" />
+            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location')" required autocomplete="location" />
+            <x-input-error class="mt-2" :messages="$errors->get('location')" />
+        </div>
+
         <div class="mb-6">
             <label class="block text-[#6B5B95] text-sm font-medium mb-2">Contraseña</label>
             <input type="password" name="password"

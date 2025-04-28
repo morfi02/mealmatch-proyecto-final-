@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'location',
     ];
 
     /**
@@ -52,6 +53,10 @@ class User extends Authenticatable
     // Para chefs (vendedores): Relación con sus valoraciones
     public function ratingsReceived() {
         return $this->hasMany(Rating::class, 'seller_id');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Rating::class, 'user_id'); 
     }
 
     // Calcular promedio de estrellas

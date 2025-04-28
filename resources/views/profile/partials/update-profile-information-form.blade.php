@@ -28,17 +28,25 @@
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
-    
+
         <div>
-            <x-input-label for="profile_photo" :value="__('Profile Photo')" />
-            <div class="flex items-center gap-4">
-                @if ($user->profile_photo_url)
-                    <img src="{{ Storage::url($user->profile_photo_url) }}" alt="Profile Photo" class="w-16 h-16 rounded-full object-cover">
-                @endif
-                <input id="profile_photo" name="profile_photo" type="file" class="mt-1 block w-full">
-            </div>
-            <x-input-error class="mt-2" :messages="$errors->get('profile_photo')" />
+            <x-input-label for="location" :value="__('Ubicación de entrega')" />
+            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->location)" autocomplete="location" />
+            <x-input-error class="mt-2" :messages="$errors->get('location')" />
         </div>
+    
+        @if (auth()->user()->rol === 'cocinero')
+            <div>
+                <x-input-label for="profile_photo" :value="__('Profile Photo')" />
+                <div class="flex items-center gap-4">
+                    @if ($user->profile_photo_url)
+                        <img src="{{ Storage::url($user->profile_photo_url) }}" alt="Profile Photo" class="w-16 h-16 rounded-full object-cover">
+                    @endif
+                    <input id="profile_photo" name="profile_photo" type="file" class="mt-1 block w-full">
+                </div>
+                <x-input-error class="mt-2" :messages="$errors->get('profile_photo')" />
+            </div>
+        @endif
     
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

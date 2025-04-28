@@ -6,6 +6,7 @@ use App\Http\Controllers\SeccionEspecialController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\OrderController;
 
 
 
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cliente/dashboard', [UsuariosController::class, 'clienteDashboard'])->name('cliente.dashboard');
     Route::get('/cliente/cocinero/{id}', [UsuariosController::class, 'showCocinero'])->name('cliente.cocinero.show');
     Route::get('/cocineros/{id}', [UsuariosController::class, 'show'])->name('cocineros.show');
+    Route::post('/orders', [OrderController::class, 'store'])->name('order.store');
 });
 
 Route::middleware(['auth'])->group(function () {

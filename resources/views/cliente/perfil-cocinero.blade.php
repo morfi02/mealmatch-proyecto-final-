@@ -68,37 +68,67 @@
         </div>
         @endif
         @endauth
+       
 
-        <!-- Listado de Valoraciones -->
-        @if($cocinero->ratingsReceived->count() > 0)
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-[#2D3748] mb-6">Reseñas de clientes</h2>
-            <div class="space-y-6">
-                @foreach($cocinero->ratingsReceived()->with('user')->latest()->take(5)->get() as $rating)
-                <div class="border-b pb-6 last:border-b-0 last:pb-0">
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center">
-                            <div class="font-medium">{{ $rating->user->name }}</div>
-                            <div class="flex ml-3">
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= $rating->rating))
-                                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                    @else
-                                        <i class="far fa-star text-yellow-400 text-sm"></i>
-                                    @endif
-                                @endfor
-                            </div>
-                        </div>
-                        <span class="text-sm text-gray-500">{{ $rating->created_at->diffForHumans() }}</span>
-                    </div>
-                    @if($rating->comment)
-                    <p class="text-gray-600 mt-2">{{ $rating->comment }}</p>
-                    @endif
-                </div>
-                @endforeach
+        {{-- seccion de pedidos antiguos --}}
+        @if($order)
+        <div class="bg-white p-6 rounded-xl shadow-sm mt-6">
+            <h3 class="text-xl font-bold text-[#2D3748] mb-4">Pedido Guardado</h3>
+            <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition">
+                <h4 class="text-lg font-bold text-[#2D3748] mb-4">Detalles del Pedido</h4>
+                <ul class="space-y-2">
+                    @foreach($order->items as $item)
+                    <li class="flex justify-between text-sm text-gray-600">
+                        <span>{{ $item['name'] }} (x{{ $item['quantity'] }})</span>
+                        <span>${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                    </li>
+                    @endforeach
+                </ul>
+                <p class="text-lg font-bold text-[#FF6F61] mt-4">Total: ${{ number_format(collect($order->items)->sum(fn($item) => $item['price'] * $item['quantity']), 2) }}</p>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button class="bg-[#FF6F61] text-white px-4 py-2 rounded-lg hover:bg-[#FF8C7F] transition" onclick="repeatOrder()">
+                    Repetir Pedido
+                </button>
             </div>
         </div>
         @endif
+        {{-- estilo de pedidos antiguos --}}
+        <style>
+            .grid {
+                display: grid;
+                gap: 1.5rem;
+            }
+            .grid-cols-1 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+            .shadow {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .hover\:shadow-md:hover {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .transition {
+                transition: all 0.2s ease-in-out;
+            }
+            .text-[#FF6F61] {
+                color: #FF6F61;
+            }
+            .bg-gray-50 {
+                background-color: #F9FAFB;
+            }
+        </style>
+
+        
 
         <!-- Menú del Cocinero -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -195,6 +225,65 @@
         </div>
     </div>
 </div>
+
+<!-- Sección de Valoración -->
+@auth
+@if(auth()->user()->rol === 'cliente' && !auth()->user()->hasRated($cocinero->id))
+<div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-bold text-[#2D3748] mb-4">Deja tu valoración</h2>
+    <form action="{{ route('rate.chef') }}" method="POST">
+        @csrf
+        <input type="hidden" name="seller_id" value="{{ $cocinero->id }}">
+        
+        <div class="star-rating mb-4">
+            @for($i = 1; $i <= 5; $i++)
+                <i class="far fa-star cursor-pointer text-2xl" data-rating="{{ $i }}"></i>
+            @endfor
+            <input type="hidden" name="rating" id="selected-rating" value="0" required>
+        </div>
+        
+        <div class="mb-4">
+            <textarea name="comment" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6F61]" placeholder="Comentario (opcional)"></textarea>
+        </div>
+        
+        <button type="submit" class="bg-[#6B5B95] text-black px-4 py-2 rounded-lg hover:bg-[#7F6DA7] transition">
+            Enviar Valoración
+        </button>
+    </form>
+</div>
+@endif
+@endauth
+
+<!-- Listado de Valoraciones -->
+@if($cocinero->ratingsReceived->count() > 0)
+<div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-bold text-[#2D3748] mb-6">Reseñas de clientes</h2>
+    <div class="space-y-6">
+        @foreach($cocinero->ratingsReceived()->with('user')->latest()->take(5)->get() as $rating)
+        <div class="border-b pb-6 last:border-b-0 last:pb-0">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                    <div class="font-medium">{{ $rating->user->name }}</div>
+                    <div class="flex ml-3">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $rating->rating))
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            @else
+                                <i class="far fa-star text-yellow-400 text-sm"></i>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
+                <span class="text-sm text-gray-500">{{ $rating->created_at->diffForHumans() }}</span>
+            </div>
+            @if($rating->comment)
+            <p class="text-gray-600 mt-2">{{ $rating->comment }}</p>
+            @endif
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
 
 <!-- Script para el sistema de valoración -->
 <script>
@@ -330,12 +419,46 @@
         total = 0;
         updateCartUI();
     }
+
+    function confirmOrder() {
+        if (cart.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Carrito vacío!',
+                text: 'Añade platos a tu pedido antes de confirmar.',
+            });
+            return;
+        }
+
+        fetch('{{ route("order.store") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                cocinero_id: {{ $cocinero->id }},
+                items: cart,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Pedido guardado',
+                text: 'Tu pedido ha sido guardado con éxito.',
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 </script>
 
 <!-- Estilos adicionales -->
 <style>
     .star-rating {
-        color: #e2e8f0; /* Color base para estrellas no seleccionadas */
+        color: #e2e8f0; /
     }
     .star-rating i {
         transition: all 0.2s;
@@ -465,4 +588,6 @@
         border-top: 2px dashed #ccc;
     }
 </style>
+
+
 @endsection

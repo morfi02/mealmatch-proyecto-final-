@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Dish;
+use App\Models\Order;
 
 class UsuariosController extends Controller
 {
@@ -23,17 +24,31 @@ class UsuariosController extends Controller
     public function cocineroDashboard()
     {
         $dishes = Auth::user()->dishes;
-        return view('cocinero.dashboard', compact('dishes'));
+        $ratings = Auth::user()->ratingsReceived()->with('user')->latest()->get();
+
+        $averageRating = $ratings->avg('rating'); 
+        $totalComments = $ratings->whereNotNull('comment')->count(); 
+
+        return view('cocinero.dashboard', compact('dishes','ratings','averageRating', 'totalComments'));
     }
     public function showCocinero($id)
     {
         $cocinero = User::with('dishes')->findOrFail($id);
-        return view('cliente.perfil-cocinero', compact('cocinero'));
+
+        $order = Order::where('user_id', auth()->id())
+            ->where('cocinero_id', $id)
+            ->first();
+
+        return view('cliente.perfil-cocinero', compact('cocinero', 'order'));
     }
     public function show($id)
     {
         $cocinero = User::findOrFail($id);
-        return view('cliente.perfil-cocinero', compact('cocinero'));
+
+        $order = Order::where('user_id', auth()->id())
+        ->where('cocinero_id', $id)
+        ->first(); 
+        return view('cliente.perfil-cocinero', compact('cocinero', 'order'));
     }
 
     public function buscarCocineros(Request $request)
