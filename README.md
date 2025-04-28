@@ -1,3 +1,4 @@
 
-[Diagrama de tablas](diagrama.odt)
-[fase_analisis](Fase_analisis.docx)
+[Diagrama de tablas](diagrama.odt)  
+
+[fase_analisis](Fase_analisis.docx)  
