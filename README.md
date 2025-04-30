@@ -4,3 +4,5 @@
 [fase_analisis](Fase_analisis.docx)  
 
 [Estructura_bbdd](mealmatch.sql)  
+
+[Fase_diseño](diagramas_diseño.docx)  
