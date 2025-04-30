@@ -5,4 +5,4 @@
 
 [Estructura_bbdd](mealmatch.sql)  
 
-[Fase_diseño](diagramas_diseño.odt)  
+[Fase_diseño](diagramas_diseño.pdf)  
