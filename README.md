@@ -1,7 +1,7 @@
 
-[Diagrama de tablas](diagrama.odt)  
+[Diagrama de tablas](diagrama.pdf)  
 
-[fase_analisis](Fase_analisis.docx)  
+[fase_analisis](Fase_analisis.pdf)  
 
 [Estructura_bbdd](mealmatch.sql)  
 
