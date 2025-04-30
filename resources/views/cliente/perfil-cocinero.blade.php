@@ -73,7 +73,7 @@
         {{-- seccion de pedidos antiguos --}}
         @if($order)
         <div class="bg-white p-6 rounded-xl shadow-sm mt-6">
-            <h3 class="text-xl font-bold text-[#2D3748] mb-4">Pedido Guardado</h3>
+            <h3 class="text-xl font-bold text-[#2D3748] mb-4">Ultimo pedido</h3>
             <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition">
                 <h4 class="text-lg font-bold text-[#2D3748] mb-4">Detalles del Pedido</h4>
                 <ul class="space-y-2">
@@ -539,6 +539,8 @@
         background-color: #f8fafc;
     }
     .receipt {
+        position: sticky;
+        top: 20px; /* Distancia desde la parte superior de la ventana */
         width: 250px;
         background: white;
         border: 2px dashed #ccc;
