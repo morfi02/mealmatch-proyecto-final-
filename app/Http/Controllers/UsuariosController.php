@@ -31,16 +31,19 @@ class UsuariosController extends Controller
 
         return view('cocinero.dashboard', compact('dishes','ratings','averageRating', 'totalComments'));
     }
-    public function showCocinero($id)
-    {
-        $cocinero = User::with('dishes')->findOrFail($id);
+    // public function showCocinero($id)
+    // {
+    //     $cocinero = User::with('dishes')->findOrFail($id);
 
-        $order = Order::where('user_id', auth()->id())
-            ->where('cocinero_id', $id)
-            ->first();
+    //     $order = Order::where('user_id', auth()->id())
+    //         ->where('cocinero_id', $id)
+    //         ->first();
 
-        return view('cliente.perfil-cocinero', compact('cocinero', 'order'));
-    }
+    //     // Si no hay un pedido, creo un objeto vacío
+    //     $order = $order ?? (object) ['items' => []];
+
+    //     return view('cliente.perfil-cocinero', compact('cocinero', 'order'));
+    // }
     public function show($id)
     {
         $cocinero = User::findOrFail($id);

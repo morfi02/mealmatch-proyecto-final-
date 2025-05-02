@@ -12,8 +12,8 @@ test('new users can register', function () {
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'location' => 'Test City',
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
-});
+    $response->assertRedirect(route('cliente.dashboard', absolute: false));});

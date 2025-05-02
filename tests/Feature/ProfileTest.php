@@ -13,7 +13,9 @@ test('profile page is displayed', function () {
 });
 
 test('profile information can be updated', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'email_verified_at' => null, 
+    ]);
 
     $response = $this
         ->actingAs($user)
