@@ -7,12 +7,16 @@ use App\Models\User;
 use App\Models\Dish;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
+
 
 class UsuariosControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
+
     public function cliente_puede_ver_dashboard()
     {
         $cliente = User::factory()->create([
@@ -27,7 +31,8 @@ class UsuariosControllerTest extends TestCase
         $response->assertViewIs('cliente.dashboard');
     }
 
-   /** @test */
+   #[Test]
+
     public function cocinero_puede_ver_su_dashboard()
     {
         $cocinero = User::factory()->create([
@@ -41,7 +46,8 @@ class UsuariosControllerTest extends TestCase
         $response->assertViewIs('cocinero.dashboard');
     }
 
-    /** @test */
+    #[Test]
+
     public function puede_ver_perfil_de_cocinero()
     {
         $cliente = User::factory()->create();
