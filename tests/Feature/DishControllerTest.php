@@ -49,7 +49,7 @@ class DishControllerTest extends TestCase
         $cocinero = User::factory()->create();
         $this->actingAs($cocinero);
 
-        $response = $this->post(route('dishes.store'), []); // Vacío
+        $response = $this->post(route('dishes.store'), []); 
 
         $response->assertSessionHasErrors(['name', 'description', 'price', 'image']);
     }
