@@ -68,6 +68,8 @@ class UsuariosController extends Controller
         
         
 
+
+        
         $cocineros = $query->get();
 
         

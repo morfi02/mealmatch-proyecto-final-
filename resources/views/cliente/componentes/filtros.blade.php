@@ -21,4 +21,7 @@
     <button type="submit" class="w-full md:w-auto px-6 py-3 bg-[#FF6F61] text-white rounded-lg hover:bg-[#FF8C7F] transition">
         🔍 Buscar
     </button>
+
+
+    
 </form>
