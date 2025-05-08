@@ -15,10 +15,18 @@ class UsuariosController extends Controller
         $cocineros = User::where('rol', 'cocinero')
             ->with('dishes')
             ->get();
+        
 
-        $categorias = Dish::select('tags')->get()->pluck('tags')->flatten()->unique();
+            $categorias = Dish::pluck('tags') 
+            ->filter()
+            ->flatMap(function ($tagArray) {
+                return collect(json_decode($tagArray, true)); 
+            })
+            ->unique()
+            ->sort()
+            ->values();           
 
-        return view('cliente.dashboard', compact('cocineros','categorias'));
+        return view('cliente.dashboard', compact('cocineros','categorias',));
     }
 
     public function cocineroDashboard()
@@ -63,17 +71,31 @@ class UsuariosController extends Controller
         }
 
         if ($request->filled('categoria')) {
-            $query->whereHas('dishes', function ($q) use ($request) {
-                $q->whereJsonContains('tags', $request->categoria);
+            $categoria = $request->categoria;
+        
+            $query->whereHas('dishes', function ($q) use ($categoria) {
+                $q->where('tags', 'like', '%' . $categoria . '%');
             });
         }
+        
+        
 
         $cocineros = $query->get();
 
         // Obtener todas las categorías únicas de la columna 'tags'
-        $categorias = Dish::select('tags')->get()->pluck('tags')->flatten()->unique();
+        $categorias = Dish::pluck('tags') 
+        ->filter() // elimina nulls
+        ->flatMap(function ($tagArray) {
+            $decoded = json_decode($tagArray, true);
+            return is_array($decoded) ? $decoded : []; // evita errores si json_decode falla
+        })
+        ->unique()
+        ->sort()
+        ->values();
+            
 
         return view('cliente.dashboard', compact('cocineros', 'categorias'));
+
     }
 
     

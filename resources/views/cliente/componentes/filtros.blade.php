@@ -11,11 +11,13 @@
 
     <select name="categoria" class="w-full md:w-64 px-4 py-3 border-2 border-[#A2DDF0] rounded-lg">
         <option value="">Todas las categorías</option>
-        <option value="Mexicana" {{ request('categoria') == 'Mexicana' ? 'selected' : '' }}>Mexicana</option>
-        <option value="Italiana" {{ request('categoria') == 'Italiana' ? 'selected' : '' }}>Italiana</option>
-        <option value="Vegana" {{ request('categoria') == 'Vegana' ? 'selected' : '' }}>Vegana</option>
+        @foreach($categorias as $categoria)
+            <option value="{{ $categoria }}" {{ request('categoria') == $categoria ? 'selected' : '' }}>
+                {{ $categoria }}
+            </option>
+        @endforeach
     </select>
-
+    
     <button type="submit" class="w-full md:w-auto px-6 py-3 bg-[#FF6F61] text-white rounded-lg hover:bg-[#FF8C7F] transition">
         🔍 Buscar
     </button>
