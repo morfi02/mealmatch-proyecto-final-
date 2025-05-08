@@ -39,19 +39,7 @@ class UsuariosController extends Controller
 
         return view('cocinero.dashboard', compact('dishes','ratings','averageRating', 'totalComments'));
     }
-    // public function showCocinero($id)
-    // {
-    //     $cocinero = User::with('dishes')->findOrFail($id);
-
-    //     $order = Order::where('user_id', auth()->id())
-    //         ->where('cocinero_id', $id)
-    //         ->first();
-
-    //     // Si no hay un pedido, creo un objeto vacío
-    //     $order = $order ?? (object) ['items' => []];
-
-    //     return view('cliente.perfil-cocinero', compact('cocinero', 'order'));
-    // }
+    
     public function show($id)
     {
         $cocinero = User::findOrFail($id);
@@ -82,12 +70,12 @@ class UsuariosController extends Controller
 
         $cocineros = $query->get();
 
-        // Obtener todas las categorías únicas de la columna 'tags'
+        
         $categorias = Dish::pluck('tags') 
-        ->filter() // elimina nulls
+        ->filter() 
         ->flatMap(function ($tagArray) {
             $decoded = json_decode($tagArray, true);
-            return is_array($decoded) ? $decoded : []; // evita errores si json_decode falla
+            return is_array($decoded) ? $decoded : []; 
         })
         ->unique()
         ->sort()
