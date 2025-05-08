@@ -63,5 +63,23 @@ class UsuariosControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewHas('cocinero');
     }
+
+    #[Test]
+    public function filtra_cocineros_por_nombre()
+    {
+        $cliente = User::factory()->create(['rol' => 'cliente']);
+        $this->actingAs($cliente);
+    
+        $cocinero1 = User::factory()->create(['name' => 'Juan Cocinero', 'rol' => 'cocinero']);
+        $cocinero2 = User::factory()->create(['name' => 'Pedro Chef', 'rol' => 'cocinero']);
+    
+        $response = $this->get('/buscar-cocineros?search=Juan');
+    
+        $response->assertStatus(200);
+        $response->assertSee('Juan Cocinero');
+        $response->assertDontSee('Pedro Chef');
+    }
+    
+    
 }
 
