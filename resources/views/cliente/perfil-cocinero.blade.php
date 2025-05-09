@@ -345,7 +345,7 @@
         }
     });
 
-    // Script del carrito (existente)
+    // Script del carrito 
     let cart = [];
     let total = 0;
 
@@ -415,50 +415,152 @@
             return;
         }
 
+        // Mostrar formulario de dirección y pago
         Swal.fire({
-            icon: 'success',
-            title: 'Pedido confirmado',
-            text: 'Tu pedido ha sido confirmado con éxito. Total: $' + total.toFixed(2),
+            title: 'Detalles de envío y pago',
+            html: `
+                <form id="checkout-form" class="text-left">
+                    <h3 class="font-bold text-lg mb-3">Dirección de entrega</h3>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Calle y número</label>
+                        <input type="text" id="street" class="w-full px-3 py-2 border rounded-md" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Piso/Puerta</label>
+                            <input type="text" id="floor" class="w-full px-3 py-2 border rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
+                            <input type="text" id="postal_code" class="w-full px-3 py-2 border rounded-md" required>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Instrucciones adicionales</label>
+                        <textarea id="instructions" class="w-full px-3 py-2 border rounded-md" rows="2"></textarea>
+                    </div>
+                    
+                    <h3 class="font-bold text-lg mb-3">Información de pago</h3>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Número de tarjeta</label>
+                        <input type="text" id="card_number" class="w-full px-3 py-2 border rounded-md" 
+                               placeholder="0000 0000 0000 0000" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de expiración</label>
+                            <input type="text" id="expiry" class="w-full px-3 py-2 border rounded-md" 
+                                   placeholder="MM/AA" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                            <input type="text" id="cvv" class="w-full px-3 py-2 border rounded-md" 
+                                   placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre en la tarjeta</label>
+                        <input type="text" id="card_name" class="w-full px-3 py-2 border rounded-md" required>
+                    </div>
+                </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Completar pedido',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#FF6F61',
+            focusConfirm: false,
+            preConfirm: () => {
+                // Validar formulario
+                const form = document.getElementById('checkout-form');
+                const requiredInputs = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredInputs.forEach(input => {
+                    if (!input.value) {
+                        isValid = false;
+                        input.classList.add('border-red-500');
+                    } else {
+                        input.classList.remove('border-red-500');
+                    }
+                });
+                
+                if (!isValid) {
+                    Swal.showValidationMessage('Por favor, complete todos los campos requeridos');
+                    return false;
+                }
+                
+                // Recopilar datos del formulario
+                return {
+                    address: {
+                        street: document.getElementById('street').value,
+                        floor: document.getElementById('floor').value,
+                        postal_code: document.getElementById('postal_code').value,
+                        instructions: document.getElementById('instructions').value
+                    },
+                    payment: {
+                        card_number: document.getElementById('card_number').value,
+                        expiry: document.getElementById('expiry').value,
+                        cvv: document.getElementById('cvv').value,
+                        name: document.getElementById('card_name').value
+                    }
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar el pedido con los datos de dirección y pago
+                const orderData = {
+                    cocinero_id: {{ $cocinero->id }},
+                    items: cart,
+                    address: result.value.address,
+                    payment_info: result.value.payment
+                };
+                
+                // Mostrar pantalla de carga
+                Swal.fire({
+                    title: 'Procesando pedido...',
+                    text: 'Por favor espere mientras procesamos su pedido',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                
+                
+                fetch('{{ route("order.store") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify(orderData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar confirmación
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Pedido realizado con éxito!',
+                        text: 'Recibirás un correo electrónico con los detalles de tu pedido.',
+                        confirmButtonColor: '#FF6F61'
+                    });
+                    
+                    // Vaciar carrito
+                    cart = [];
+                    total = 0;
+                    updateCartUI();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al procesar el pedido',
+                        text: 'Por favor, intente nuevamente más tarde.',
+                        confirmButtonColor: '#FF6F61'
+                    });
+                });
+            }
         });
-
-        cart = [];
-        total = 0;
-        updateCartUI();
     }
-
-    function confirmOrder() {
-        if (cart.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: '¡Carrito vacío!',
-                text: 'Añade platos a tu pedido antes de confirmar.',
-            });
-            return;
-        }
-
-        fetch('{{ route("order.store") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-            body: JSON.stringify({
-                cocinero_id: {{ $cocinero->id }},
-                items: cart,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Pedido guardado',
-                text: 'Tu pedido ha sido guardado con éxito.',
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
 </script>
 
 <!-- Estilos adicionales -->
@@ -594,6 +696,40 @@
         margin-bottom: 15px;
         padding-top: 10px;
         border-top: 2px dashed #ccc;
+    }
+
+    .swal2-popup {
+        width: 40em !important;
+        max-width: 95% !important;
+    }
+    
+    /* Estilos para campos con validación fallida */
+    .border-red-500 {
+        border-color: #ef4444 !important;
+    }
+    
+    /* Mejoras para campos de formulario */
+    input.border, textarea.border {
+        transition: all 0.3s ease;
+    }
+    
+    input.border:focus, textarea.border:focus {
+        border-color: #FF6F61;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.2);
+    }
+    
+    /* Mejoras de accesibilidad */
+    label {
+        cursor: pointer;
+    }
+    
+    /* Estilos para mensajes de validación */
+    .swal2-validation-message {
+        background-color: #fef2f2 !important;
+        color: #ef4444 !important;
+        border-radius: 6px !important;
+        padding: 10px 15px !important;
     }
 </style>
 

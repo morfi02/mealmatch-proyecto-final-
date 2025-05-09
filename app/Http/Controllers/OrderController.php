@@ -24,6 +24,6 @@ class OrderController extends Controller
             ]
         );
 
-        return response()->json(['message' => 'Pedido guardado con éxito', 'order' => $order]);
+        return response()->json(['message' => 'Pedido realizado con éxito', 'order' => $order]);
     }
 }

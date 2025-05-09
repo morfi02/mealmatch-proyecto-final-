@@ -82,28 +82,26 @@
 }
 
 .card:hover .card_info {
-  opacity: 0; /* Ocultar la información de la parte inferior al hacer hover */
+  opacity: 0; 
 }
 
 .card_info .card_subtitle {
   font-size: 14px;
   margin-bottom: 10px;
 }
-/* ///////////////////////////////////////////////////////////////////// */
 
 
 
-/* ==============================================
-   Variables Globales para la Tarjeta Chef
-   ============================================== */
+
+
    :root {
     --card-bg-color: #ffffff;
     --card-text-color: #333333;
     --card-secondary-text-color: #666666;
-    --card-accent-color: #007bff; /* Un azul formal como ejemplo */
-    --card-rating-color: #fbbc05; /* Amarillo/dorado para estrellas */
-    --card-overlay-bg: rgba(20, 20, 20, 0.85); /* Fondo del overlay */
-    --card-overlay-text: #ffffff;       /* Texto del overlay */
+    --card-accent-color: #007bff;
+    --card-rating-color: #fbbc05; 
+    --card-overlay-bg: rgba(20, 20, 20, 0.85); 
+    --card-overlay-text: #ffffff;       
     --card-border-radius: 12px;
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
@@ -111,54 +109,47 @@
     --overlay-transition: opacity 0.35s ease-out, visibility 0.35s ease-out, transform 0.35s ease-out;
 }
 
-/* ==============================================
-   Estilo Base de la Tarjeta Chef (<a>)
-   ============================================== */
+
 .chef-card {
     display: block;
     background-color: var(--card-bg-color);
     border-radius: var(--card-border-radius);
-    overflow: hidden; /* Clave para bordes redondeados y contener elementos internos */
+    overflow: hidden; 
     text-decoration: none;
     color: var(--card-text-color);
     box-shadow: var(--card-shadow);
     transition: var(--card-transition);
-    max-width: 350px; /* O el ancho que prefieras */
-    margin: 1rem; /* Espacio exterior */
-    position: relative; /* Añadido por si acaso, aunque el image-container ya lo es */
+    max-width: 350px; 
+    margin: 1rem; 
+    position: relative; 
 }
 
-/* Efecto Hover/Focus en la Tarjeta Completa */
+
 .chef-card:hover,
 .chef-card:focus {
-    transform: translateY(-5px); /* Elevación sutil */
+    transform: translateY(-5px); 
     box-shadow: var(--card-hover-shadow);
-    outline: none; /* Quita el outline por defecto si se desea */
+    outline: none; 
 }
 
 
-/* ==============================================
-   Contenedor de la Imagen y Overlay
-   ============================================== */
+
 .chef-card__image-container {
     width: 100%;
-    height: 200px; /* Altura deseada para la imagen */
+    height: 200px; 
     overflow: hidden;
-    position: relative; /* Contexto para el posicionamiento absoluto del overlay */
-    background-color: #eee; /* Fondo placeholder */
+    position: relative; 
+    background-color: #eee; 
 }
 
 .chef-card__image {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Escala la imagen para cubrir el área */
-    /* Ya no aplicamos transición de zoom a la imagen */
+    object-fit: cover; 
 }
 
-/* ==============================================
-   Overlay de Platos (Visible en Hover/Focus)
-   ============================================== */
+
 .chef-card__dishes-overlay {
     position: absolute;
     top: 0;
@@ -169,31 +160,31 @@
     color: var(--card-overlay-text);
     padding: 1rem;
     box-sizing: border-box;
-    z-index: 2; /* Por encima de la imagen */
+    z-index: 2; 
 
-    /* Estado inicial oculto */
+   
     opacity: 0;
     visibility: hidden;
-    transform: translateY(15px); /* Animación de entrada */
+    transform: translateY(15px);
     transition: var(--overlay-transition);
 
-    /* Scroll si el contenido es largo */
+    
     overflow-y: auto;
 }
 
-/* Mostrar Overlay en Hover/Focus de la tarjeta */
+
 .chef-card:hover .chef-card__dishes-overlay,
-.chef-card:focus-within .chef-card__dishes-overlay { /* focus-within es útil para accesibilidad */
+.chef-card:focus-within .chef-card__dishes-overlay { 
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* Contenido dentro del Overlay */
+
 .chef-card__overlay-title {
     font-size: 1.1rem;
     font-weight: 600;
-    margin-top: 0; /* Reseteo por si acaso */
+    margin-top: 0; 
     margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -209,25 +200,25 @@
 .chef-card__overlay-dish {
     display: flex;
     justify-content: space-between;
-    align-items: baseline; /* Alinea mejor texto de diferente tamaño */
+    align-items: baseline;
     font-size: 0.85rem;
     padding: 0.3rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    gap: 0.5rem; /* Espacio entre nombre y precio */
+    gap: 0.5rem; 
 }
 
 .chef-card__overlay-dish:last-child {
     border-bottom: none;
 }
 
-.chef-card__overlay-dish span:first-child { /* Nombre plato */
-    flex-grow: 1; /* Ocupa espacio */
+.chef-card__overlay-dish span:first-child { 
+    flex-grow: 1; 
 }
 
-.chef-card__overlay-dish span:last-child { /* Precio */
+.chef-card__overlay-dish span:last-child { 
     font-weight: 500;
     white-space: nowrap;
-    flex-shrink: 0; /* Evita que se encoja */
+    flex-shrink: 0; 
 }
 
 .chef-card__overlay-no-dishes {
@@ -238,7 +229,7 @@
     padding-top: 1rem;
 }
 
-/* Estilo Scrollbar (Opcional - Webkit) */
+
 .chef-card__dishes-overlay::-webkit-scrollbar {
     width: 6px;
 }
@@ -255,14 +246,12 @@
 }
 
 
-/* ==============================================
-   Contenido Inferior (Nombre, Rating, Especialidades)
-   ============================================== */
+
 .chef-card__content {
     padding: 1.5rem;
 }
 
-/* Cabecera: Título y Rating */
+
 .chef-card__header {
     display: flex;
     justify-content: space-between;
@@ -286,8 +275,8 @@
     font-weight: 500;
     color: var(--card-secondary-text-color);
     white-space: nowrap;
-    padding-top: 0.2rem; /* Ajuste vertical */
-    flex-shrink: 0; /* No encoger */
+    padding-top: 0.2rem; 
+    flex-shrink: 0; 
 }
 
 .chef-card__rating-icon {
@@ -298,10 +287,10 @@
     flex-shrink: 0;
 }
 
-/* Descripción y lista de 3 especialidades */
+
 .chef-card__description {
     margin-top: 1rem;
-    border-top: 1px solid #eee; /* Separador */
+    border-top: 1px solid #eee; 
     padding-top: 1rem;
 }
 
