@@ -213,9 +213,6 @@
                         <h3 class="text-xl font-bold text-[#2D3748] mb-4">Detalles del Chef</h3>
                         <ul class="space-y-4">
                             <li class="flex items-center gap-3">
-                                📍 Ubicación: <span class="font-medium">{{ $cocinero->location }}</span>
-                            </li>
-                            <li class="flex items-center gap-3">
                                 🕒 Tiempo de entrega: <span class="font-medium">45-60 min</span>
                             </li>
                             <li class="flex items-center gap-3">
