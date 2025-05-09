@@ -406,89 +406,131 @@
     }
 
     function confirmOrder() {
-        if (cart.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: '¡Carrito vacío!',
-                text: 'Añade platos a tu pedido antes de confirmar.',
-            });
-            return;
-        }
-
-        // Mostrar formulario de dirección y pago
+    if (cart.length === 0) {
         Swal.fire({
-            title: 'Detalles de envío y pago',
-            html: `
-                <form id="checkout-form" class="text-left">
-                    <h3 class="font-bold text-lg mb-3">Dirección de entrega</h3>
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Calle y número</label>
-                        <input type="text" id="street" class="w-full px-3 py-2 border rounded-md" required>
+            icon: 'warning',
+            title: '¡Carrito vacío!',
+            text: 'Añade platos a tu pedido antes de confirmar.',
+        });
+        return;
+    }
+
+    // Mostrar formulario de dirección y pago con la animación
+    Swal.fire({
+        title: 'Detalles de envío y pago',
+        html: `
+            <div class="transaction-container">
+                <div class="left-side">
+                    <div class="card">
+                        <div class="card-line"></div>
+                        <div class="buttons"></div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Piso/Puerta</label>
-                            <input type="text" id="floor" class="w-full px-3 py-2 border rounded-md">
+                    <div class="post">
+                        <div class="post-line"></div>
+                        <div class="screen">
+                            <div class="dollar">$</div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
-                            <input type="text" id="postal_code" class="w-full px-3 py-2 border rounded-md" required>
-                        </div>
+                        <div class="numbers"></div>
+                        <div class="numbers-line2"></div>
                     </div>
-                    <div class="mb-5">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Instrucciones adicionales</label>
-                        <textarea id="instructions" class="w-full px-3 py-2 border rounded-md" rows="2"></textarea>
+                </div>
+                <div class="right-side">
+                    <div class="new">Nuevo Pago</div>
+                    <svg viewBox="0 0 451.846 451.847" height="512" width="512" xmlns="http://www.w3.org/2000/svg" class="arrow">
+                        <path fill="#cfcfcf" d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284c6.177 6.18 9.262 14.271 9.262 22.366 0 8.099-3.091 16.196-9.267 22.373z"></path>
+                    </svg>
+                </div>
+            </div>
+            <form id="checkout-form" class="text-left mt-6">
+                <h3 class="font-bold text-lg mb-3">Dirección de entrega</h3>
+                <div class="mb-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Calle y número</label>
+                    <input type="text" id="street" class="w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Piso/Puerta</label>
+                        <input type="text" id="floor" class="w-full px-3 py-2 border rounded-md">
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
+                        <input type="text" id="postal_code" class="w-full px-3 py-2 border rounded-md" required>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Instrucciones adicionales</label>
+                    <textarea id="instructions" class="w-full px-3 py-2 border rounded-md" rows="2"></textarea>
+                </div>
+                
+                <h3 class="font-bold text-lg mb-3">Información de pago</h3>
+                <div class="mb-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Número de tarjeta</label>
+                    <input type="text" id="card_number" class="w-full px-3 py-2 border rounded-md" 
+                           placeholder="0000 0000 0000 0000" required>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de expiración</label>
+                        <input type="text" id="expiry" class="w-full px-3 py-2 border rounded-md" 
+                               placeholder="MM/AA" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                        <input type="text" id="cvv" class="w-full px-3 py-2 border rounded-md" 
+                               placeholder="123" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre en la tarjeta</label>
+                    <input type="text" id="card_name" class="w-full px-3 py-2 border rounded-md" required>
+                </div>
+            </form>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Completar pedido',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#FF6F61',
+        focusConfirm: false,
+        didOpen: () => {
+            
+            const container = document.querySelector('.transaction-container');
+            if (container) {
+                
+                container.classList.add('animate');
+                
+                
+                setTimeout(() => {
+                    container.dispatchEvent(new MouseEvent('mouseenter'));
                     
-                    <h3 class="font-bold text-lg mb-3">Información de pago</h3>
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Número de tarjeta</label>
-                        <input type="text" id="card_number" class="w-full px-3 py-2 border rounded-md" 
-                               placeholder="0000 0000 0000 0000" required>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de expiración</label>
-                            <input type="text" id="expiry" class="w-full px-3 py-2 border rounded-md" 
-                                   placeholder="MM/AA" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                            <input type="text" id="cvv" class="w-full px-3 py-2 border rounded-md" 
-                                   placeholder="123" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre en la tarjeta</label>
-                        <input type="text" id="card_name" class="w-full px-3 py-2 border rounded-md" required>
-                    </div>
-                </form>
-            `,
-            showCancelButton: true,
-            confirmButtonText: 'Completar pedido',
-            cancelButtonText: 'Cancelar',
-            confirmButtonColor: '#FF6F61',
-            focusConfirm: false,
-            preConfirm: () => {
-                // Validar formulario
-                const form = document.getElementById('checkout-form');
-                const requiredInputs = form.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredInputs.forEach(input => {
-                    if (!input.value) {
-                        isValid = false;
-                        input.classList.add('border-red-500');
-                    } else {
-                        input.classList.remove('border-red-500');
-                    }
-                });
-                
-                if (!isValid) {
-                    Swal.showValidationMessage('Por favor, complete todos los campos requeridos');
-                    return false;
+                    
+                    setTimeout(() => {
+                        container.dispatchEvent(new MouseEvent('mouseleave'));
+                    }, 2000);
+                }, 500);
+            }
+        },
+        preConfirm: () => {
+            // Validate form
+            const form = document.getElementById('checkout-form');
+            const requiredInputs = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('border-red-500');
+                    input.classList.remove('border-green-500'); 
+                } else {
+                    input.classList.remove('border-red-500');
+                    input.classList.add('border-green-500'); 
                 }
-                
+            });
+
+            if (!isValid) {
+                Swal.showValidationMessage('Por favor, complete todos los campos requeridos');
+                return false;
+            }
+                            
                 // Recopilar datos del formulario
                 return {
                     address: {
@@ -525,7 +567,7 @@
                     }
                 });
                 
-                
+                // Enviar pedido al servidor
                 fetch('{{ route("order.store") }}', {
                     method: 'POST',
                     headers: {
@@ -561,6 +603,41 @@
             }
         });
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Formateo automático del número de tarjeta (separación cada 4 dígitos)
+        document.body.addEventListener('input', function(e) {
+            if (e.target && e.target.id === 'card_number') {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 16) value = value.slice(0, 16);
+                
+                // Formatear con espacios cada 4 dígitos
+                const formatted = [];
+                for (let i = 0; i < value.length; i += 4) {
+                    formatted.push(value.slice(i, i + 4));
+                }
+                e.target.value = formatted.join(' ');
+            }
+            
+            // Formateo de fecha de expiración (MM/AA)
+            if (e.target && e.target.id === 'expiry') {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 4) value = value.slice(0, 4);
+                
+                if (value.length > 2) {
+                    e.target.value = value.slice(0, 2) + '/' + value.slice(2);
+                } else {
+                    e.target.value = value;
+                }
+            }
+            
+            // Limitar CVV a 3-4 dígitos
+            if (e.target && e.target.id === 'cvv') {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 4) value = value.slice(0, 4);
+                e.target.value = value;
+            }
+        });
+    });
 </script>
 
 <!-- Estilos adicionales -->
